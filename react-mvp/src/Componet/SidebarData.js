@@ -12,7 +12,13 @@ export const SidebarData = [
     className: "nav-text",
   },
   {
-    title: "Workouts",
+    title: "Journal",
+    path: "/journal",
+    icon: <IoIcons.IoIosJournal />,
+    className: "nav-text",
+  },
+  {
+    title: "Find Workouts",
     path: "/workouts",
     icon: <GiIcons.GiWeightLiftingUp />,
     className: "nav-text",
@@ -36,9 +42,4 @@ export const SidebarData = [
   //   className: "nav-text",
   // },
   // {
-  //   // title: "Login",
-  //   // path: "/",
-  //   // icon: <IoIcons.IoMdHelpCircle />,
-  //   // className: "nav-text",
-  // },
 ];

@@ -8,6 +8,7 @@ import User from "./Pages/User";
 import { AuthProvider } from "./Componet/Auth";
 import Login from "./Pages/Login";
 import { RequireAuth } from "./Componet/RequireAuth";
+import Lifts from "./Pages/Lifts";
 
 function App() {
   return (
@@ -26,11 +27,20 @@ function App() {
               }
             />
             <Route
-              path="/workouts"
+              path="/journal"
               exact
               element={
                 <RequireAuth>
                   <Workouts />{" "}
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/workouts"
+              exact
+              element={
+                <RequireAuth>
+                  <Lifts />{" "}
                 </RequireAuth>
               }
             />
@@ -56,18 +66,6 @@ function App() {
             <Route path="/" exact element={<Login />} />
           </Routes>
         </Router>
-        {/* <div className="usersDiv">
-        <CreateUser />
-        <ReadUser />
-        <UpdateUser />
-        <DeleteUser />
-      </div>
-      <div className="workoutDiv">
-        <CreateWorkout />
-        <ReadWorkouts />
-        <UpdateWorkout />
-        <DeleteWorkout />
-      </div> */}
       </AuthProvider>
     </div>
   );

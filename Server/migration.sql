@@ -15,7 +15,7 @@ CREATE TABLE users (
 
 CREATE TABLE lifts(
     lift_id SERIAL,
-    name TEXT PRIMARY KEY,
+    name TEXT,
     muscle_group TEXT,
     example VARCHAR(327),
     tips TEXT
@@ -23,7 +23,7 @@ CREATE TABLE lifts(
 
 CREATE TABLE workouts (
     workout_id SERIAL,
-    name TEXT REFERENCES lifts(name) ON DELETE CASCADE,
+    name TEXT ,
     weight TEXT,
     sets INTEGER,
     reps INTEGER,
@@ -97,9 +97,9 @@ INSERT INTO quotes(quote,author) VALUES ('Intensity builds immensity.','Kevin Le
 INSERT INTO quotes(quote,author) VALUES ('The first and greatest victory is to conquer self.','Plato');
 INSERT INTO quotes(quote,author) VALUES ('The pain of discipline is nothing like the pain of disappointment.','Justin Langer');
 INSERT INTO quotes(quote,author) VALUES ('Discipline is built by consistently performing small acts of courage.','Robin Sharma');
-INSERT INTO quotes(quote,author) VALUES ('If I want to be great I have to win the victory over myself…self-discipline.','Harry S. Truman');
+INSERT INTO quotes(quote,author) VALUES ('If I want to be great I have to win the victory over myself self-discipline.','Harry S. Truman');
 INSERT INTO quotes(quote,author) VALUES ('We must all suffer one of two things: the pain of discipline or the pain of regret.','Jim Rohn');
-INSERT INTO quotes(quote,author) VALUES ('If I Have To Die Tonight, If This Weight Is Going To Kill Me Tonight, SO BE IT! Im Dying Where I Wanna Be…','Kai Greene');
+INSERT INTO quotes(quote,author) VALUES ('If I Have To Die Tonight, If This Weight Is Going To Kill Me Tonight, SO BE IT! Im Dying Where I Wanna Be','Kai Greene');
 INSERT INTO quotes(quote,author) VALUES ('The best activities for your health are pumping and humping.','Arnold Schwarzenegger');
 INSERT INTO quotes(quote,author) VALUES ('Discipline is the bridge between your bodybuilding goals and bodybuilding success.','Felicity Luckey');
 INSERT INTO quotes(quote,author) VALUES ('I always say to myself right before a tough set in the gym, Aint nothin to it, but to do it.','Ronnie Coleman');

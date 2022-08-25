@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import Kat from "../Componet/Picture/Kat.png";
 import { useAuth } from "../Componet/Auth";
 import { useNavigate } from "react-router-dom";
 const url = "http://localhost:3001";
@@ -9,14 +9,15 @@ function Login() {
   const auth = useAuth();
   const navigate = useNavigate();
   const [showCreate, setShowCreate] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleLogin = () => {
     fetch(`${url}/api/users/${user}`)
       .then((response) => response.json())
       .then((data) => {
-        //If username doesnt exist it creates an error response
-
+        //If username doesnt exist it creates an error response as visible
         if (data.length === 0) {
+          setErrorMessage(true);
           console.log("doesnt exist");
         } else {
           auth.login(user);
@@ -24,9 +25,6 @@ function Login() {
         }
       });
   };
-  /////////////
-  ///////////
-  //////////
 
   // This sets a variable for each input.
   const [uservalues, SetValues] = useState({
@@ -66,6 +64,7 @@ function Login() {
   const handleSubmit = (event) => {
     //prevent referesh
     event.preventDefault();
+    //check to see if each input is filled out
     if (
       uservalues.username &&
       uservalues.name &&
@@ -77,6 +76,7 @@ function Login() {
     }
     setSubmitted(true);
   };
+
   const addUser = (event) => {
     const requestUser = {
       method: "POST",
@@ -102,36 +102,43 @@ function Login() {
       });
   };
 
-  ////////////////
-  ///////////////
-  ///////////////
   ////////////
   return (
-    <div className="login">
+    <div className="login-page">
+      {/* Main picture */}
+      <img className="Kat" src={Kat} />
+      {/* If user doesnt click on create user show login */}
       {!showCreate ? (
         <>
-          <label>
-            Username:{" "}
-            <input
-              type="text"
-              onChange={(event) => {
-                setUser(event.target.value);
+          <div className="login">
+            <label>
+              Username:{" "}
+              <input
+                type="text"
+                onChange={(event) => {
+                  setUser(event.target.value);
+                }}
+              />
+            </label>
+            <button className="loginbtn" onClick={handleLogin}>
+              Login
+            </button>
+            {/* if user doesnt exist in database show error message */}
+            {errorMessage && (
+              <p className="errorMessage">Username does not exist!</p>
+            )}
+            <button
+              onClick={() => {
+                setShowCreate(true);
               }}
-            />
-          </label>
-          <button className="loginbtn" onClick={handleLogin}>
-            Login
-          </button>
-          <button
-            onClick={() => {
-              setShowCreate(true);
-            }}
-            className="createUser"
-          >
-            Create Account
-          </button>
+              className="createUser"
+            >
+              Create Account
+            </button>
+          </div>
         </>
       ) : (
+        // Create user form
         <>
           <div className="form-container">
             <form className="create-form" onSubmit={handleSubmit}>
@@ -140,6 +147,7 @@ function Login() {
                   Success! Thank you for registering
                 </div>
               ) : null}
+              <p>Fill out the form to create an account.</p>
               <input
                 onChange={handleUserNameInputChange}
                 value={uservalues.username}
@@ -215,15 +223,6 @@ function Login() {
               >
                 Create Account
               </button>
-              {/* {submitted && valid ? (
-                <div className="newUser">
-                  <h3>{uservalues.username}</h3>
-                  <span>Name: {uservalues.name}</span>
-                  <span>Weight: {uservalues.weight}</span>
-                  <span>Sex: {uservalues.sex}</span>
-                  <span>Age: {uservalues.age}</span>
-                </div>
-              ) : null} */}
             </form>
           </div>
         </>

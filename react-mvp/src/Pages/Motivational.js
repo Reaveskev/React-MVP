@@ -1,36 +1,41 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 const url = "http://localhost:3001";
 
 function Motivational() {
   const [quote, setQuote] = useState("");
   const [author, setAuthor] = useState("");
+  const [showQuote, setShowQuote] = useState(false);
 
   const getQuote = () => {
     fetch(`${url}/api/quotes/`)
       .then((response) => response.json())
       .then((response) => {
-        console.log(response);
         let dataQ = response;
-        let ranNum = Math.floor(Math.random() * dataQ.length);
-        let ranQ = dataQ[ranNum];
+        //Random number times the length of quotes in order to grab a random quote.
+        let ranNumber = Math.floor(Math.random() * dataQ.length);
+        let ranQ = dataQ[ranNumber];
         setQuote(ranQ.quote);
         setAuthor(ranQ.author);
-      })
-      .catch((err) => console.error(err));
+        setShowQuote(true);
+      });
   };
-
+  //Get another random quote
   const NextQuote = () => {
     getQuote();
   };
 
   return (
     <div className="motivational">
-      <h1>Motivational</h1>
-      <div className="quote">{quote}</div>
-      <div className="author">-{author}</div>
+      <h1 className="motivationHeader">Motivational</h1>
+      {showQuote ? (
+        <div className="fullQuote">
+          <div className="quote">{quote}</div>
+          <div className="author">{author}</div>
+        </div>
+      ) : null}
       <div className="text-center my-3">
-        <button id="btn" className="py-2 px-3" onClick={NextQuote}>
-          Next
+        <button className="motoBTN" onClick={NextQuote}>
+          Get quote
         </button>
       </div>
     </div>

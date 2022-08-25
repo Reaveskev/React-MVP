@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { CreateWorkout } from "../Componet/Create";
-
 import { useAuth } from "../Componet/Auth";
 const url = "http://localhost:3001";
 
@@ -10,19 +9,18 @@ function Workouts() {
 
   const [showCreate, setShowCreate] = useState(false);
 
-  const [showRead, setShowRead] = useState(true);
+  const [showRead, setShowRead] = useState(false);
 
   const addAnotherWorkout = () => {
     setworkoutList([...workoutList, { workout: "" }]);
   };
-
+  //Removes the last workoutfield
   const removeWorkoutField = (index) => {
     const list = [...workoutList];
     list.splice(index, 1);
     setworkoutList(list);
   };
-  /////////////
-  ///////////
+
   ////////////
   function ReadWorkouts() {
     const [workouts, setWorkouts] = useState([]);
@@ -30,10 +28,10 @@ function Workouts() {
     const handleSubmit = (event) => {
       //prevent referesh
       event.preventDefault();
+
       setShowRead(true);
     };
 
-    /////////////
     ////////////
     function DeleteWorkout(workout_id) {
       console.log(workout_id);
@@ -53,43 +51,38 @@ function Workouts() {
         });
     }
 
-    //////////////
-    ///////////////
     /////////////
 
     const findWorkout = (event) => {
-      // if (findWorkoutValues.username === "") {
-      //   fetch(`${url}/api/workouts/`)
-      //     .then((response) => response.json())
-      //     .then((data) => {
-      //       setValid(true);
-      //       setWorkouts(data);
-      //     });
-      // } else {
       fetch(`${url}/api/workouts/${auth.user}`)
         .then((response) => response.json())
         .then((data) => {
-          //If username doesnt exist it creates an error response
-          if (data.length === 0) {
-            console.log("Username doesnt exist");
-          } else {
-            setWorkouts(data);
-          }
+          setWorkouts(data);
         });
     };
 
     return (
-      <div className="form-container">
+      <div className="findRecordedWorkoutDiv">
         <form className="read-form" onSubmit={handleSubmit}>
           <button
             onClick={() => findWorkout()}
             className="form-field"
             type="submit"
           >
-            Find Workout
+            Find Past Workouts
           </button>
+          {showRead ? (
+            <button
+              className="cancelSearch"
+              onClick={() => {
+                setShowRead(false);
+              }}
+            >
+              Cancel Search
+            </button>
+          ) : null}
         </form>
-        <div className="testing">
+        <div className="allWorkouts">
           {workouts.map((workout) => {
             return (
               <div key={workout.workout_id} className="newUser">
@@ -99,7 +92,7 @@ function Workouts() {
                 <span>Sets: {workout.sets}</span>
                 <span>Workout id: {workout.workout_id}</span>
                 <button
-                  className="TestingDelete"
+                  className="deleteWorkoutBTN"
                   onClick={() => {
                     DeleteWorkout(workout.workout_id);
                   }}
@@ -117,8 +110,8 @@ function Workouts() {
   /////////////////
   return (
     <div className="workouts">
-      <h1>Workouts</h1>
-      <>
+      <h1 className="journalHeader">Journal</h1>
+      <div className="AddWorkoutDiv">
         {showCreate ? (
           <>
             {workoutList.map((singleworkout, index) => (
@@ -152,7 +145,7 @@ function Workouts() {
                   </button>
                 )}
               </div>
-            ))}{" "}
+            ))}
           </>
         ) : (
           <button
@@ -164,23 +157,11 @@ function Workouts() {
             Add New Workout
           </button>
         )}
-      </>
+      </div>
 
       <div className="readWorkout">
         <ReadWorkouts />
-        {showRead ? (
-          <button
-            className="cancelSearch"
-            onClick={() => {
-              setShowRead(false);
-            }}
-          >
-            Cancel Search
-          </button>
-        ) : null}
       </div>
-
-      {/* <UpdateWorkout />  */}
     </div>
   );
 }

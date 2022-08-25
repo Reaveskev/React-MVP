@@ -299,15 +299,11 @@ app.get("/api/lifts/", (req, res) => {
 app.get("/api/lifts/:id", (req, res) => {
   const id = req.params.id;
   pool
-    .query("SELECT * FROM lifts WHERE name LIKE $1", ["%" + id + "%"])
+    .query("SELECT * FROM lifts WHERE name ILIKE $1", ["%" + id + "%"])
     .then((data) => {
       // const info = data.rows;
       let workout = data.rows;
-      // info.forEach((element) => {
-      //   if (info.name === id) {
-      //     workout = info.rows;
-      //   }
-      // });
+
       if (workout) {
         res.send(workout);
       } else {
@@ -316,27 +312,27 @@ app.get("/api/lifts/:id", (req, res) => {
     });
 });
 
-//Add new lift.
-app.post("/api/lifts", (req, res) => {
-  const { name, muscle_group, example, tips } = req.body;
-  if (name && muscle_group) {
-    pool
-      .query(
-        "INSERT INTO lifts(name, muscle_group, example, tips) VALUES($1, $2, $3, $4) RETURNING *;",
-        [name, muscle_group, example, tips]
-      )
-      .then((data) => {
-        res.status(200);
-        res.send(data.rows[0]);
-        console.log("New lift added!");
-      });
-  } else {
-    res.status(400);
-    res.set("Content-Type", "text/plain");
-    res.send("Bad Request");
-    console.log("Bad Request");
-  }
-});
+// //Add new lift.
+// app.post("/api/lifts", (req, res) => {
+//   const { name, muscle_group, example, tips } = req.body;
+//   if (name && muscle_group) {
+//     pool
+//       .query(
+//         "INSERT INTO lifts(name, muscle_group, example, tips) VALUES($1, $2, $3, $4) RETURNING *;",
+//         [name, muscle_group, example, tips]
+//       )
+//       .then((data) => {
+//         res.status(200);
+//         res.send(data.rows[0]);
+//         console.log("New lift added!");
+//       });
+//   } else {
+//     res.status(400);
+//     res.set("Content-Type", "text/plain");
+//     res.send("Bad Request");
+//     console.log("Bad Request");
+//   }
+// });
 
 /////
 app.get("/api/quotes", (req, res) => {
