@@ -29,8 +29,12 @@ function Motivational() {
       <h1 className="motivationHeader">Motivational</h1>
       {showQuote ? (
         <div className="fullQuote">
-          <div className="quote">{quote}</div>
-          <div className="author">{author}</div>
+          <div style={{ margin: "10px" }} className="quote">
+            {quote}
+          </div>
+          <div style={{ fontWeight: "bold" }} className="author">
+            {author}
+          </div>
         </div>
       ) : null}
       <div className="text-center my-3">

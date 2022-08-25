@@ -3,6 +3,7 @@ import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
 import * as IoIcons from "react-icons/io";
 import * as GiIcons from "react-icons/gi";
+import * as VscIcons from "react-icons/vsc";
 
 export const SidebarData = [
   {
@@ -35,11 +36,10 @@ export const SidebarData = [
     icon: <AiIcons.AiOutlineUser />,
     className: "nav-text",
   },
-  // {
-  //   title: "Sign out?",
-  //   path: "/sign-out",
-  //   icon: <IoIcons.IoMdHelpCircle />,
-  //   className: "nav-text",
-  // },
-  // {
+  {
+    title: "Sign out",
+    path: "/",
+    icon: <VscIcons.VscSignOut />,
+    className: "nav-text",
+  },
 ];
