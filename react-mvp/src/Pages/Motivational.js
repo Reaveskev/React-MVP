@@ -27,6 +27,10 @@ function Motivational() {
   return (
     <div className="motivational">
       <h1 className="motivationHeader">Motivational</h1>
+      <span className="moto-span">
+        Need a little push or burst of wisdom to get your focus back, or get you
+        motivated? We got you covered!
+      </span>
       {showQuote ? (
         <div className="fullQuote">
           <div style={{ margin: "10px" }} className="quote">

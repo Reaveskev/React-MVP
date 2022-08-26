@@ -141,7 +141,7 @@ function Login() {
         // Create user form
         <>
           <div className="form-container">
-            <form className="create-form" onSubmit={handleSubmit}>
+            <form className="create-user" onSubmit={handleSubmit}>
               {submitted && valid ? (
                 <div className="success-message">
                   Success! Thank you for registering
@@ -222,6 +222,16 @@ function Login() {
                 type="submit"
               >
                 Create Account
+              </button>
+              <button
+                style={{ margin: "5px" }}
+                onClick={() => {
+                  setShowCreate(false);
+                }}
+                className="form-field"
+                type="submit"
+              >
+                Cancel
               </button>
             </form>
           </div>

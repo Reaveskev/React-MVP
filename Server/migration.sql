@@ -89,8 +89,8 @@ INSERT INTO quotes(quote,author) VALUES ('The question isnt who is going to let 
 INSERT INTO quotes(quote,author) VALUES ('Everybody wants to be a bodybuilder but dont nobody want to lift heavy ass weights!','Ronnie Coleman');
 INSERT INTO quotes(quote,author) VALUES ('Bodybuilding isnt 90 minutes in the gym. Its a lifestyle.','Lee Priest');
 INSERT INTO quotes(quote,author) VALUES ('Champions arent made in the gyms. Champions are made from something they have deep inside them-a desire, a dream, a vision.','Muhammad Ali');
-INSERT INTO quotes(quote,author) VALUES ('It took me 20 years of hard training to get the physique I have today. What you need is what I had – belief in yourself!','Branch Warren');
-INSERT INTO quotes(quote,author) VALUES ('Vision creates faith and faith creates willpower. With faith, there is no anxiety and no doubt – just absolute confidence in yourself.','Arnold Schwarzenegger');
+INSERT INTO quotes(quote,author) VALUES ('It took me 20 years of hard training to get the physique I have today. What you need is what I had belief in yourself!','Branch Warren');
+INSERT INTO quotes(quote,author) VALUES ('Vision creates faith and faith creates willpower. With faith, there is no anxiety and no doubt just absolute confidence in yourself.','Arnold Schwarzenegger');
 INSERT INTO quotes(quote,author) VALUES ('Being negative and lazy is a disease that leads to pain, hardships, depression, poor health, and failure. Be proactive and give a damn to achieve success!','Phil Heath');
 INSERT INTO quotes(quote,author) VALUES ('Bodybuilding is much like any other sport. To be successful, you must dedicate yourself 100% to your training, diet and mental approach.','Arnold Schwarzenegger');
 INSERT INTO quotes(quote,author) VALUES ('Intensity builds immensity.','Kevin Levrone');

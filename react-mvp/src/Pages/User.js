@@ -23,68 +23,68 @@ function User() {
   }, [uservalues]);
   /////////////////////
 
-  function UpdateUser() {
-    const handleNameInputChange = (event) => {
-      SetValues({ ...uservalues, name: event.target.value });
+  const handleNameInputChange = (event) => {
+    SetValues({ ...uservalues, name: event.target.value });
+  };
+
+  const handleWeightInputChange = (event) => {
+    SetValues({ ...uservalues, weight: event.target.value });
+  };
+
+  const handleSexInputChange = (event) => {
+    SetValues({ ...uservalues, sex: event.target.value });
+  };
+
+  const handleAgeInputChange = (event) => {
+    SetValues({ ...uservalues, age: Number(event.target.value) });
+  };
+
+  const handleSubmit = (event) => {
+    //prevent referesh
+    event.preventDefault();
+  };
+
+  //
+  const updateUser = (event) => {
+    //Specifies PATCH request and header
+    if (uservalues.name === "") {
+      uservalues.name = auth.name;
+    }
+    if (uservalues.weight === "") {
+      uservalues.weight = auth.weight;
+    }
+    if (uservalues.sex === "") {
+      uservalues.sex = auth.sex;
+    }
+    if (uservalues.age === "") {
+      uservalues.age = auth.age;
+    }
+
+    const requestUser = {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: auth.user,
+        name: uservalues.name,
+        weight: uservalues.weight,
+        sex: uservalues.sex,
+        age: uservalues.age,
+      }),
     };
+    fetch(`${url}/api/users/${auth.user}`, requestUser)
+      .then((response) => response.json())
+      .then((data) => {
+        //If username does exist it updates div with their information.
+        SetValues({ username: "", name: "", weight: "", sex: "", age: "" });
+      });
+  };
 
-    const handleWeightInputChange = (event) => {
-      SetValues({ ...uservalues, weight: event.target.value });
-    };
-
-    const handleSexInputChange = (event) => {
-      SetValues({ ...uservalues, sex: event.target.value });
-    };
-
-    const handleAgeInputChange = (event) => {
-      SetValues({ ...uservalues, age: Number(event.target.value) });
-    };
-
-    const handleSubmit = (event) => {
-      //prevent referesh
-      event.preventDefault();
-    };
-
-    //
-    const updateUser = (event) => {
-      //Specifies PATCH request and header
-      if (uservalues.name === "") {
-        uservalues.name = auth.name;
-      }
-      if (uservalues.weight === "") {
-        uservalues.weight = auth.weight;
-      }
-      if (uservalues.sex === "") {
-        uservalues.sex = auth.sex;
-      }
-      if (uservalues.age === "") {
-        uservalues.age = auth.age;
-      }
-
-      const requestUser = {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          username: auth.user,
-          name: uservalues.name,
-          weight: uservalues.weight,
-          sex: uservalues.sex,
-          age: uservalues.age,
-        }),
-      };
-      fetch(`${url}/api/users/${auth.user}`, requestUser)
-        .then((response) => response.json())
-        .then((data) => {
-          //If username does exist it updates div with their information.
-          SetValues({ username: "", name: "", weight: "", sex: "", age: "" });
-        });
-    };
-
-    //
-    return (
-      <div className="form-container">
+  //
+  return (
+    <div className="user">
+      <div className="user-div">
         <h1 className="userHeader">My Account</h1>
         <div>
           {users.map((user) => {
@@ -98,6 +98,7 @@ function User() {
             );
           })}
         </div>
+
         <form className="userDiv" onSubmit={handleSubmit}>
           <div className="userInfo">
             <h3>Update Information</h3>
@@ -106,7 +107,6 @@ function User() {
               <input
                 onChange={handleNameInputChange}
                 value={uservalues.name}
-                id="name"
                 className="name-span"
                 type="text"
                 placeholder="Name"
@@ -118,7 +118,6 @@ function User() {
               <input
                 onChange={handleWeightInputChange}
                 value={uservalues.weight}
-                id="weight"
                 className="weigth-span"
                 type="text"
                 placeholder="Weight"
@@ -130,7 +129,6 @@ function User() {
               <input
                 onChange={handleSexInputChange}
                 value={uservalues.sex}
-                id="sex"
                 className="sex-span"
                 type="text"
                 placeholder="Sex"
@@ -142,7 +140,6 @@ function User() {
               <input
                 onChange={handleAgeInputChange}
                 value={uservalues.age}
-                id="age"
                 className="age-span"
                 type="text"
                 placeholder="Age"
@@ -158,14 +155,6 @@ function User() {
             </button>
           </div>
         </form>
-      </div>
-    );
-  }
-
-  return (
-    <div className="user">
-      <div className="userDiv">
-        <UpdateUser />
       </div>
     </div>
   );
