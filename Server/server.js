@@ -49,12 +49,12 @@ app.get("/api/users/:id", (req, res) => {
 
 //Add new user. Must have name, weight, age has to be a number.
 app.post("/api/users", (req, res) => {
-  const { username, name, weight, sex, age } = req.body;
-  if (typeof age === "number" && weight && name && username && sex) {
+  const { username, name, sex, age } = req.body;
+  if (typeof age === "number" && name && username && sex) {
     pool
       .query(
-        "INSERT INTO users(username, name, weight, sex, age) VALUES($1, $2, $3, $4, $5) RETURNING *;",
-        [username, name, weight, sex, age]
+        "INSERT INTO users(username, name, sex, age) VALUES($1, $2, $3, $4) RETURNING *;",
+        [username, name, sex, age]
       )
       .then((data) => {
         res.status(200);
@@ -94,7 +94,7 @@ app.patch("/api/users/:id", (req, res) => {
   const id = req.params.id;
   console.log(id);
 
-  const { username, name, weight, sex, age } = req.body;
+  const { username, name, sex, age } = req.body;
 
   if (name) {
     if (typeof name !== "string") {
@@ -104,12 +104,6 @@ app.patch("/api/users/:id", (req, res) => {
   }
   if (age) {
     if (typeof age !== "number") {
-      res.sendStatus(400);
-      res.send("Bad Request");
-    }
-  }
-  if (weight) {
-    if (typeof weight !== "string") {
       res.sendStatus(400);
       res.send("Bad Request");
     }
@@ -128,8 +122,8 @@ app.patch("/api/users/:id", (req, res) => {
   }
   pool
     .query(
-      `UPDATE users SET username = COALESCE($1, username), name = COALESCE($2, name), weight = COALESCE($3, weight), sex = COALESCE($4, sex), age = COALESCE($5, age) WHERE username = $6 RETURNING *`,
-      [username, name, weight, sex, age, id]
+      `UPDATE users SET username = COALESCE($1, username), name = COALESCE($2, name), sex = COALESCE($3, sex), age = COALESCE($4, age) WHERE username = $5 RETURNING *`,
+      [username, name, sex, age, id]
     )
     .then((result) => {
       if (result.rows.length === 0) {
@@ -340,3 +334,42 @@ app.get("/api/quotes", (req, res) => {
     res.send(data.rows);
   });
 });
+
+//////////////
+app.get("/api/user_info/", (req, res) => {
+  pool.query("SELECT * FROM user_info").then((data) => {
+    res.send(data.rows);
+  });
+});
+
+app.get("/api/user_info/:id", (req, res) => {
+  const id = req.params.id;
+  pool
+    .query("SELECT * FROM user_info WHERE username = $1", [id])
+    .then((data) => {
+      res.send(data.rows);
+    });
+});
+
+app.post("/api/user_info/", (req, res) => {
+  const { weight, date, username } = req.body;
+  if (weight && date && username) {
+    pool
+      .query(
+        "INSERT INTO user_info (weight, date, username) VALUES($1, $2, $3) RETURNING *;",
+        [weight, date, username]
+      )
+      .then((data) => {
+        res.status(200);
+        res.send(data.rows[0]);
+        console.log("New weight added!");
+      });
+  } else {
+    res.status(400);
+    res.set("Content-Type", "text/plain");
+    res.send("Bad Request");
+    console.log("Bad Request");
+  }
+});
+
+// SELECT * FROM users INNER JOIN user_info ON users.username = user_info.username ORDER BY date desc limit 1;

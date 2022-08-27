@@ -1,5 +1,6 @@
 DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS lifts CASCADE;
+DROP TABLE IF EXISTS user_info CASCADE;
 DROP TABLE IF EXISTS workouts ;
 DROP TABLE IF EXISTS quotes ;
 -- psql -f migration.sql react_mvp
@@ -8,10 +9,20 @@ CREATE TABLE users (
     user_id SERIAL,
     username TEXT PRIMARY KEY,
     name TEXT,
-    weight TEXT,
+    -- weight TEXT,
     sex TEXT,
     age INTEGER
 );
+
+-- ///////////////Test
+CREATE TABLE user_info (
+    info_id SERIAL,
+    weight TEXT,
+    date TEXT,  
+    username TEXT REFERENCES users(username)
+    ON DELETE CASCADE
+);
+-- ///////////////Test
 
 CREATE TABLE lifts(
     lift_id SERIAL,
@@ -39,9 +50,28 @@ CREATE TABLE quotes(
 );
 
 
-INSERT INTO users(username, name, weight, sex, age) VALUES ('CBum', 'Chris', '265 lbs', 'Male', 27),
-('Kev', 'Kevin', '210 lbs', 'Male', 25),
-('Kat', 'Katrina', '136 lbs', 'Female', 25);
+INSERT INTO users(username, name, sex, age) VALUES ('CBum', 'Chris', 'Male', 27),
+('Kev', 'Kevin', 'Male', 25),
+('Kat', 'Katrina', 'Female', 25);
+
+
+-- Test
+
+    
+INSERT INTO user_info(weight, date, username) VALUES ('230', '8/10/2022', 'Kev'),
+('228', '8/11/2022', 'Kev'),
+('226', '8/19/2022', 'Kev'),
+('229', '8/21/2022', 'Kev'),
+('224', '8/24/2022', 'Kev'),
+('222', '8/26/2022', 'Kev'),
+('150', '8/21/2022', 'Kat'),
+('160', '8/26/2022', 'Kat');
+
+-- 8/26/2022
+
+-- SELECT * FROM users INNER JOIN user_info ON users.username = user_info.username ORDER BY date desc limit 1;
+
+-- Test
 
 
 INSERT INTO quotes(quote,author) VALUES ('If a man tells you he doesn''t lift because he doesn''t want to get too bulky, then his testicles have been removed.','Paul Carter');

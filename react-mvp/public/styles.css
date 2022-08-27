@@ -420,6 +420,7 @@ footer {
 
 .user {
   display: flex;
+  flex-direction: column;
   /* height: 14vh; */
   align-items: center;
   justify-content: center;
@@ -464,4 +465,9 @@ footer {
   text-align: center;
   align-items: center;
   justify-content: center;
+}
+
+.graph {
+  width: 750px;
+  height: 375;
 }

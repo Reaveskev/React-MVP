@@ -61,6 +61,8 @@ function Login() {
     SetValues({ ...uservalues, age: Number(event.target.value) });
   };
 
+  const currentDate = new Date();
+
   const handleSubmit = (event) => {
     //prevent referesh
     event.preventDefault();
@@ -87,15 +89,32 @@ function Login() {
       body: JSON.stringify({
         username: uservalues.username,
         name: uservalues.name,
-        weight: uservalues.weight,
+        // weight: uservalues.weight,
         sex: uservalues.sex,
         age: uservalues.age,
       }),
     };
 
+    const requestWeight = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      // Takes our inputs and passes it into the body.
+      body: JSON.stringify({
+        username: uservalues.username,
+        weight: uservalues.weight,
+        date: currentDate.toLocaleDateString(),
+      }),
+    };
+
+    //////////////////
     fetch(`${url}/api/users/`, requestUser)
       .then((response) => response.json())
       .then((data) => {
+        fetch(`${url}/api/user_info/`, requestWeight)
+          .then((response) => response.json())
+          .then((data) => {});
         SetValues(data);
         auth.login(data.username);
         navigate("/home");

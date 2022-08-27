@@ -1,5 +1,28 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../Componet/Auth";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
+
+import { Line } from "react-chartjs-2";
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
+
 const url = "http://localhost:3001";
 
 function User() {
@@ -8,16 +31,28 @@ function User() {
   const [uservalues, SetValues] = useState({
     username: "",
     name: "",
-    weight: "",
     sex: "",
     age: "",
   });
+  const [weightInput, SetWeightInput] = useState({
+    weight: "",
+    date: "",
+  });
+
+  const [userweight, SetUserWeight] = useState({});
+
+  const currentDate = new Date();
 
   //Updates User info when submitted
   useEffect(() => {
     fetch(`${url}/api/users/${auth.user}`)
       .then((response) => response.json())
       .then((data) => {
+        fetch(`${url}/api/user_info/${auth.user}`)
+          .then((response) => response.json())
+          .then((data) => {
+            SetUserWeight(data);
+          });
         setUsers(data);
       });
   }, [uservalues]);
@@ -28,7 +63,7 @@ function User() {
   };
 
   const handleWeightInputChange = (event) => {
-    SetValues({ ...uservalues, weight: event.target.value });
+    SetWeightInput({ ...weightInput, weight: event.target.value });
   };
 
   const handleSexInputChange = (event) => {
@@ -41,6 +76,8 @@ function User() {
 
   const handleSubmit = (event) => {
     //prevent referesh
+    SetWeightInput({ weight: "", date: "" });
+    SetValues({ username: "", name: "", sex: "", age: "" });
     event.preventDefault();
   };
 
@@ -48,16 +85,13 @@ function User() {
   const updateUser = (event) => {
     //Specifies PATCH request and header
     if (uservalues.name === "") {
-      uservalues.name = auth.name;
-    }
-    if (uservalues.weight === "") {
-      uservalues.weight = auth.weight;
+      uservalues.name = users.name;
     }
     if (uservalues.sex === "") {
-      uservalues.sex = auth.sex;
+      uservalues.sex = users.sex;
     }
     if (uservalues.age === "") {
-      uservalues.age = auth.age;
+      uservalues.age = users.age;
     }
 
     const requestUser = {
@@ -68,20 +102,61 @@ function User() {
       body: JSON.stringify({
         username: auth.user,
         name: uservalues.name,
-        weight: uservalues.weight,
+        // weight: uservalues.weight,
         sex: uservalues.sex,
         age: uservalues.age,
+      }),
+    };
+
+    const requestWeight = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: auth.user,
+        weight: weightInput.weight,
+        date: currentDate.toLocaleDateString(),
       }),
     };
     fetch(`${url}/api/users/${auth.user}`, requestUser)
       .then((response) => response.json())
       .then((data) => {
-        //If username does exist it updates div with their information.
-        SetValues({ username: "", name: "", weight: "", sex: "", age: "" });
+        fetch(`${url}/api/user_info/`, requestWeight)
+          .then((response) => response.json())
+          .then((data) => {});
       });
   };
 
-  //
+  /////////////////
+  ////Graph///////
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "top",
+      },
+      title: {
+        display: true,
+        text: "Weight",
+      },
+    },
+  };
+
+  const data = {
+    labels: Array.from(userweight).map((element) => element.date),
+    datasets: [
+      {
+        label: auth.user,
+        data: Array.from(userweight).map((element) => element.weight),
+        borderColor: "#060b26",
+        backgroundColor: "tan",
+      },
+    ],
+  };
+
+  //////////////////
+
   return (
     <div className="user">
       <div className="user-div">
@@ -91,7 +166,7 @@ function User() {
             return (
               <div key={user.user_id + 10}>
                 <span>Name: {user.name}</span>
-                <span>Weight: {user.weight}</span>
+                {/* <span>Weight: {user.weight}</span> */}
                 <span>Sex: {user.sex}</span>
                 <span>Age: {user.age}</span>
               </div>
@@ -117,7 +192,7 @@ function User() {
               Weight:
               <input
                 onChange={handleWeightInputChange}
-                value={uservalues.weight}
+                value={weightInput.weight}
                 className="weigth-span"
                 type="text"
                 placeholder="Weight"
@@ -155,6 +230,9 @@ function User() {
             </button>
           </div>
         </form>
+      </div>
+      <div className="graph">
+        <Line data={data} options={options} />
       </div>
     </div>
   );
