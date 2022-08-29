@@ -469,5 +469,11 @@ footer {
 
 .graph {
   width: 750px;
-  height: 375;
+  height: 375px;
+}
+
+.UserInfoDiv {
+  border: 5px solid tan;
+  border-radius: 10px;
+  margin: 20px;
 }

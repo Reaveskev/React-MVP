@@ -69,7 +69,7 @@ INSERT INTO user_info(weight, date, username) VALUES ('230', '8/10/2022', 'Kev')
 
 -- 8/26/2022
 
--- SELECT * FROM users INNER JOIN user_info ON users.username = user_info.username ORDER BY date desc limit 1;
+
 
 -- Test
 
@@ -264,7 +264,6 @@ INSERT INTO lifts(name,muscle_group,example,tips) VALUES
 ,('Weighted Jumping Jacks','Full Body','https://dl.airtable.com/Ay4JNlvRqCCbLlKjwHWC_eec0a59a6eacdc9cfd19a13290516684.jpg','')
 ,('Weighted Punches','Core','https://dl.airtable.com/AZ5zCPLNRJBCx5CwWUwn_cross-punch-exercise-illustration.gif','')
 ,('Deadbug','Core','https://dl.airtable.com/Vwxt6KjRW62PrDrpTDSx_exAX6p.gif','Really good if you have lower back pain and want to do an ab workout');
-
 
 
 

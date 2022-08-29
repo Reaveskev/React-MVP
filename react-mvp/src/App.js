@@ -62,7 +62,7 @@ function App() {
                 </RequireAuth>
               }
             />
-            <Route path="/" exact element={<Login />} />
+            {/* <Route path="/" exact element={<Login />} /> */}
 
             <Route path="/" exact element={<Login />} />
           </Routes>

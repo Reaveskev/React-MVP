@@ -164,11 +164,17 @@ function User() {
         <div>
           {users.map((user) => {
             return (
-              <div key={user.user_id + 10}>
-                <span>Name: {user.name}</span>
-                {/* <span>Weight: {user.weight}</span> */}
-                <span>Sex: {user.sex}</span>
-                <span>Age: {user.age}</span>
+              <div className="UserInfoDiv" key={user.user_id}>
+                <span>
+                  <strong>Name:</strong> {user.name}
+                </span>
+                <span>
+                  <strong>Sex:</strong> {user.sex}
+                </span>
+                <span>
+                  <strong>Age:</strong>
+                  {user.age}
+                </span>
               </div>
             );
           })}

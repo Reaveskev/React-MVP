@@ -11,3 +11,5 @@ export const RequireAuth = ({ children }) => {
   }
   return children;
 };
+
+//If login is not authorized Navigate them back to login page, not allowing them to go to any of the other pages.

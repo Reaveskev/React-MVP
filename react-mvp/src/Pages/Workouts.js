@@ -152,6 +152,7 @@ function Workouts() {
           <button
             onClick={() => {
               addWorkout();
+              console.log(workoutValues);
             }}
             className="addWorkoutBTN"
             type="submit"
@@ -225,6 +226,7 @@ function Workouts() {
             </button>
           ) : null}
         </form>
+
         <div className="allWorkouts">
           {workouts.map((workout) => {
             return (

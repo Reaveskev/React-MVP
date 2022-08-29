@@ -23,3 +23,9 @@ export const AuthProvider = ({ children }) => {
 export const useAuth = () => {
   return useContext(AuthContext);
 };
+
+////////////////////////
+//Uses Context hook to manage the users login and share it globally.
+//Create Context is used to initialize context.
+//Context Provider or .Provider is used to wrap the the componets that need the state context.
+//User, Login, and Logout all have access to the AuthContext.
