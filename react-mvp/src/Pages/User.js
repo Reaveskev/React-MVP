@@ -129,7 +129,8 @@ function User() {
   };
 
   /////////////////
-  ////Graph///////
+  ////Graph////////
+  /////////////////
   const options = {
     responsive: true,
     plugins: {
