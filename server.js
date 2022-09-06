@@ -1,13 +1,23 @@
-import express from "express";
-import pg from "pg";
-import dotenv from "dotenv";
-import cors from "cors";
+// import express from "express";
+// import pg from "pg";
+// import dotenv from "dotenv";
+// import cors from "cors";
+// import path from "path";
+
+const express = require("express");
+const cors = require("cors");
+const dotenv = require("dotenv");
+dotenv.config();
+const pg = require("pg");
+const path = require("path");
 
 // Goes through .env files and sets port and database.
 dotenv.config();
 const app = express();
 
 app.use(cors());
+
+app.use(express.static(path.join(__dirname, "build")));
 
 // Destructuring
 const { DATABASE_URL, NODE_ENV, PORT } = process.env;
@@ -202,11 +212,6 @@ app.delete("/api/workouts/:id", (req, res) => {
     });
 });
 
-// Adds console log to show that the port is running.
-app.listen(PORT, () => {
-  console.log(`listening on ${PORT}`);
-});
-
 // Updates a workout by id. Checks to see if id is valid and checks to ensure they are updating atleast one thing.
 app.patch("/api/workouts/:id", (req, res) => {
   const id = req.params.id;
@@ -372,4 +377,11 @@ app.post("/api/user_info/", (req, res) => {
   }
 });
 
-// SELECT * FROM users INNER JOIN user_info ON users.username = user_info.username ORDER BY date desc limit 1;
+app.get("/*", function (req, res) {
+  res.sendFile(path.join(__dirname, "build", "index.html"));
+});
+
+// Adds console log to show that the port is running.
+app.listen(PORT, () => {
+  console.log(`listening on ${PORT}`);
+});

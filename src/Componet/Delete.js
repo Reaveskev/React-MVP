@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const url = "http://localhost:3001";
+// const url = "http://localhost:3001";
 
 export function DeleteUser() {
   // This sets a variable for each input.
@@ -38,7 +38,7 @@ export function DeleteUser() {
       },
     };
 
-    fetch(`${url}/api/users/${uservalues.username}/`, requestUser)
+    fetch(`/api/users/${uservalues.username}/`, requestUser)
       .then((response) => response.json())
       .then((data) => {
         SetValues(data);

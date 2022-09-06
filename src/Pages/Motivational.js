@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-const url = "http://localhost:3001";
+// const url = "http://localhost:3001";
 
 function Motivational() {
   const [quote, setQuote] = useState("");
@@ -7,7 +7,7 @@ function Motivational() {
   const [showQuote, setShowQuote] = useState(false);
 
   const getQuote = () => {
-    fetch(`${url}/api/quotes/`)
+    fetch(`/api/quotes/`)
       .then((response) => response.json())
       .then((response) => {
         let dataQ = response;

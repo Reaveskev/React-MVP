@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-const url = "http://localhost:3001";
+// const url = "http://localhost:3001";
 
 function Lifts() {
   const [liftName, setliftName] = useState([{ lift: "" }]);
@@ -22,7 +22,7 @@ function Lifts() {
 
   //Creates list of all stored workouts
   function findLift() {
-    fetch(`${url}/api/lifts/${liftName.lift}`)
+    fetch(`/api/lifts/${liftName.lift}`)
       .then((response) => response.json())
       .then((data) => {
         setliftList(data);

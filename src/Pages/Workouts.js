@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useAuth } from "../Componet/Auth";
-const url = "http://localhost:3001";
+// const url = "http://localhost:3001";
 
 function Workouts() {
   const auth = useAuth();
@@ -84,7 +84,7 @@ function Workouts() {
         }),
       };
 
-      fetch(`${url}/api/workouts/`, requestUser)
+      fetch(`/api/workouts/`, requestUser)
         .then((response) => response.json())
         .then((data) => {
           SetValues(data);
@@ -187,7 +187,7 @@ function Workouts() {
         },
       };
 
-      fetch(`${url}/api/workouts/${workout_id}/`, requestUser)
+      fetch(`/api/workouts/${workout_id}/`, requestUser)
         .then((response) => response.json())
         .then((data) => {
           console.log(data);
@@ -198,7 +198,7 @@ function Workouts() {
     /////////////
 
     const findWorkout = (event) => {
-      fetch(`${url}/api/workouts/${auth.user}`)
+      fetch(`/api/workouts/${auth.user}`)
         .then((response) => response.json())
         .then((data) => {
           setWorkouts(data);

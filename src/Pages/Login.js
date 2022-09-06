@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Kat from "../Componet/Picture/Kat.png";
 import { useAuth } from "../Componet/Auth";
 import { useNavigate } from "react-router-dom";
-const url = "http://localhost:3001";
+// const url = "http://localhost:3001";
 
 function Login() {
   const [user, setUser] = useState("");
@@ -12,7 +12,7 @@ function Login() {
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleLogin = () => {
-    fetch(`${url}/api/users/${user}`)
+    fetch(`/api/users/${user}`)
       .then((response) => response.json())
       .then((data) => {
         //If username doesnt exist it creates an error response as visible
@@ -109,10 +109,10 @@ function Login() {
     };
 
     //////////////////
-    fetch(`${url}/api/users/`, requestUser)
+    fetch(`/api/users/`, requestUser)
       .then((response) => response.json())
       .then((data) => {
-        fetch(`${url}/api/user_info/`, requestWeight)
+        fetch(`/api/user_info/`, requestWeight)
           .then((response) => response.json())
           .then((data) => {});
         SetValues(data);

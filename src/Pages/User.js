@@ -23,7 +23,7 @@ ChartJS.register(
   Legend
 );
 
-const url = "http://localhost:3001";
+// const url = "http://localhost:3001";
 
 function User() {
   const auth = useAuth();
@@ -45,10 +45,10 @@ function User() {
 
   //Updates User info when submitted
   useEffect(() => {
-    fetch(`${url}/api/users/${auth.user}`)
+    fetch(`/api/users/${auth.user}`)
       .then((response) => response.json())
       .then((data) => {
-        fetch(`${url}/api/user_info/${auth.user}`)
+        fetch(`/api/user_info/${auth.user}`)
           .then((response) => response.json())
           .then((data) => {
             SetUserWeight(data);
@@ -119,10 +119,10 @@ function User() {
         date: currentDate.toLocaleDateString(),
       }),
     };
-    fetch(`${url}/api/users/${auth.user}`, requestUser)
+    fetch(`/api/users/${auth.user}`, requestUser)
       .then((response) => response.json())
       .then((data) => {
-        fetch(`${url}/api/user_info/`, requestWeight)
+        fetch(`/api/user_info/`, requestWeight)
           .then((response) => response.json())
           .then((data) => {});
       });
