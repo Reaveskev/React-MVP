@@ -4,7 +4,7 @@ Fitness Tracker is a full-stack app that allows the user to track their recorded
 
 ### Live view
 
-[![Webpage](/public/Fitness.png)](https://fitness-tracker.onrender.com/)]
+[![Webpage](/public/Fitness.png)](https://fitness-tracker.onrender.com/)
 
 ### What I learned
 
