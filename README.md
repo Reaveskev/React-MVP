@@ -4,7 +4,7 @@ Fitness Tracker is a full-stack app that allows the user to track their recorded
 
 ### Live view
 
-(https://github.com/Reaveskev/React-MVP/tree/main/public/Fitness.png)
+!(https://github.com/Reaveskev/React-MVP/tree/main/public/Fitness.png)
 https://fitness-tracker.onrender.com/
 
 ### What I learned
